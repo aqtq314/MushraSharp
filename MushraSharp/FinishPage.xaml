@@ -1,0 +1,25 @@
+﻿<Page x:Class="MushraSharp.FinishPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MushraSharp"
+      mc:Ignorable="d" 
+      d:DesignWidth="400" d:DesignHeight="225"
+      d:DataContext="{x:Static local:MasterVM.DesignerVM}"
+      Title="FinishPage">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Text="完成" HorizontalAlignment="Center" Margin="10"/>
+    <TextBox x:Name="resultTextBox" Grid.Row="1" FontFamily="Consolas" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True"
+             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+    <DockPanel Grid.Row="3" Margin="5">
+      <Button Content="前一页" Margin="5" Padding="30 5" Click="OnPrevPageButtonClicked" VerticalAlignment="Bottom"/>
+      <TextBlock Margin="5" Text="评测完成，请将上方内容复制给对接负责人，然后关闭窗口。感谢参与评测！" VerticalAlignment="Center" TextWrapping="Wrap"/>
+    </DockPanel>
+  </Grid>
+</Page>
