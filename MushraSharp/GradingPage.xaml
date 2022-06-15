@@ -7,7 +7,7 @@
                     mc:Ignorable="d"
                     d:DesignWidth="560" d:DesignHeight="315"
                     d:DataContext="{x:Static local:MasterVM.DesignerGradePageVM}"
-                    Title="GradingPage" Unloaded="OnPageUnloaded">
+                    Title="GradingPage" Loaded="OnPageLoaded" Unloaded="OnPageUnloaded">
   <FrameworkElement.Resources>
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="{x:Type RadioButton}"/>
   </FrameworkElement.Resources>

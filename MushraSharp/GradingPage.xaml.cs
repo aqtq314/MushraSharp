@@ -22,6 +22,7 @@ namespace MushraSharp
         public int PageCount { get; init; }
 
         bool _progressSync;
+        DateTime _loadedTime;
 
         public GradingPage(MasterVM masterVM, int pageIndex) : base(masterVM, pageIndex)
         {
@@ -41,11 +42,20 @@ namespace MushraSharp
             };
         }
 
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            _loadedTime = DateTime.Now;
+        }
+
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
             playButton.IsChecked = false;
             mediaElement.Stop();
             timelineSlider.Value = 0;
+
+            var unloadedTime = DateTime.Now;
+            var newPageElapsedTime = unloadedTime - _loadedTime;
+            GradePageVM.PageElapsedTime += newPageElapsedTime;
         }
 
         private void OnPlayButtonChecked(object sender, RoutedEventArgs e) => mediaElement.Play();

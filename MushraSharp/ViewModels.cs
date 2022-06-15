@@ -35,6 +35,8 @@ namespace MushraSharp
         public List<GradeItemVM> GradeItems { get; init; }
         public List<GradeItemVM> ShuffledGradeItems { get; init; }
 
+        public TimeSpan PageElapsedTime { get; set; }
+
         public GradePageVM(string refAudioPath, IEnumerable<GradeItemVM> gradeItems)
         {
             RefAudioPath = refAudioPath;
@@ -51,8 +53,10 @@ namespace MushraSharp
 
         public MasterVM(string audioFolder)
         {
+            var rng = new Random();
             GradePages =
                 Directory.EnumerateFiles(audioFolder, "*-ref.flac")
+                .OrderBy(_ => rng.Next())
                 .Select(refAudioPath => new GradePageVM(
                     refAudioPath,
                     Directory.EnumerateFiles(audioFolder, Path.GetFileName(refAudioPath)[..^"-ref.flac".Length] + "-*.flac")
@@ -67,12 +71,18 @@ namespace MushraSharp
 
         public string CompileResults()
         {
-            var jStr = System.Text.Json.JsonSerializer.Serialize(
-                GradePages.ToDictionary(
-                    gradePage => Path.GetFileNameWithoutExtension(gradePage.RefAudioPath),
-                    gradePage => gradePage.GradeItems.ToDictionary(
+            var jStr = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                Results = GradePages
+                    .SelectMany(gradePage => gradePage.GradeItems)
+                    .ToDictionary(
                         gradeItem => Path.GetFileNameWithoutExtension(gradeItem.AudioPath),
-                        gradeItem => gradeItem.Grade)));
+                        gradeItem => gradeItem.Grade),
+                ElapsedTimes = GradePages
+                    .Select(gradePage => new object[] {
+                        Path.GetFileNameWithoutExtension(gradePage.RefAudioPath),
+                        gradePage.PageElapsedTime.TotalSeconds }),
+            });
 
             return jStr + Environment.NewLine;
         }
