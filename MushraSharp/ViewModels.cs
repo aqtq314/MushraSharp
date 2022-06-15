@@ -64,7 +64,7 @@ namespace MushraSharp
                 .ToList();
         }
 
-        public MasterVM() : this(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "audio")) { }
+        public MasterVM() : this(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "audio")) { }
 
         public static MasterVM DesignerVM => new MasterVM(@"D:\Dm\MushraSharp\MushraSharp\bin\Debug\net5.0-windows\audio");
         public static GradePageVM DesignerGradePageVM => DesignerVM.GradePages[0];

@@ -29,7 +29,7 @@ namespace MushraSharp
                 var resultText = masterVM.CompileResults();
 
                 var resultTextSavePath = System.IO.Path.Combine(
-                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!,
                     "_autosave_result.json");
                 try
                 {
