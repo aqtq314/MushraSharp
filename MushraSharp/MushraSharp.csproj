@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="audio\!Put audio files here" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="audio\!Put audio files here">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

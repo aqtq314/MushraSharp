@@ -19,46 +19,52 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-      <TextBlock Text="{Binding PageTitle, RelativeSource={RelativeSource AncestorType={x:Type local:GradingPage}}}"/>
+      <TextBlock>
+        <Run Text="{DynamicResource S.GradePage.Title}"/>
+        -
+        <Run Text="{Binding PageIndexOneBased, RelativeSource={RelativeSource AncestorType={x:Type local:GradingPage}}, Mode=OneTime, FallbackValue=1}"/>
+        /
+        <Run Text="{Binding PageCount, RelativeSource={RelativeSource AncestorType={x:Type local:GradingPage}}, Mode=OneTime, FallbackValue=0}"/>
+      </TextBlock>
     </StackPanel>
-    <Grid Grid.Row="1" Grid.IsSharedSizeScope="True" HorizontalAlignment="Center">
-      <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition Height="Auto" SharedSizeGroup="GradeSlider"/>
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
-      <Grid Margin="5 10">
+    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+      <Grid Grid.IsSharedSizeScope="True" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
           <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
+          <RowDefinition Height="Auto" SharedSizeGroup="GradeSlider"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right" Text="Excellent"/>
-        <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" Text="Good"/>
-        <TextBlock Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right" Text="Fair"/>
-        <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Text="Poor"/>
-        <TextBlock Grid.Row="4" VerticalAlignment="Center" TextAlignment="Right" Text="Bad"/>
-      </Grid>
-      <Grid Margin="0 10" Grid.ColumnSpan="2">
-        <Grid.RowDefinitions>
-          <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
-          <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Rectangle Grid.Row="0" Fill="Black" Opacity="0.05"/>
-        <Rectangle Grid.Row="2" Fill="Black" Opacity="0.05"/>
-        <Rectangle Grid.Row="4" Fill="Black" Opacity="0.05"/>
-      </Grid>
-      <RadioButton Grid.Row="1" Content="加载原音频" Padding="15 5" Margin="5" VerticalAlignment="Bottom" GroupName="CurrPlaybackAudio" IsChecked="True" Checked="OnRefAudioPlaybackChecked"/>
-      <ScrollViewer Grid.Column="1" Grid.RowSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-        <ItemsControl ItemsSource="{Binding ShuffledGradeItems}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="5 10">
+          <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right" Text="{DynamicResource S.GradePage.Level.Excellent}"/>
+          <TextBlock Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" Text="{DynamicResource S.GradePage.Level.Good}"/>
+          <TextBlock Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right" Text="{DynamicResource S.GradePage.Level.Fair}"/>
+          <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Text="{DynamicResource S.GradePage.Level.Poor}"/>
+          <TextBlock Grid.Row="4" VerticalAlignment="Center" TextAlignment="Right" Text="{DynamicResource S.GradePage.Level.Bad}"/>
+        </Grid>
+        <Grid Margin="0 10" Grid.ColumnSpan="2">
+          <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <Rectangle Grid.Row="0" Fill="Black" Opacity="0.05"/>
+          <Rectangle Grid.Row="2" Fill="Black" Opacity="0.05"/>
+          <Rectangle Grid.Row="4" Fill="Black" Opacity="0.05"/>
+        </Grid>
+        <RadioButton Grid.Row="1" Content="{DynamicResource S.GradePage.Op.LoadRefAudio}" Padding="15 5" Margin="5" VerticalAlignment="Bottom" GroupName="CurrPlaybackAudio" IsChecked="True" Checked="OnRefAudioPlaybackChecked"/>
+        <ItemsControl Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ShuffledGradeItems}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel Orientation="Horizontal"/>
@@ -87,7 +93,7 @@
                 </Slider>
                 <StackPanel Grid.Row="1" Margin="5">
                   <TextBlock Text="{Binding Value, ElementName=gradeSlider}" Margin="0 5" TextAlignment="Center"/>
-                  <RadioButton x:Name="loadAudioButton" Content="加载" Padding="15 5" GroupName="CurrPlaybackAudio" Checked="OnAudioPlaybackChecked"/>
+                  <RadioButton x:Name="loadAudioButton" Content="{DynamicResource S.GradePage.Op.Load}" Padding="15 5" GroupName="CurrPlaybackAudio" Checked="OnAudioPlaybackChecked"/>
                 </StackPanel>
               </Grid>
               <DataTemplate.Triggers>
@@ -98,22 +104,24 @@
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
-      </ScrollViewer>
-    </Grid>
+      </Grid>
+    </ScrollViewer>
     <DockPanel Grid.Row="2">
       <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="OnMediaElementMediaOpened" MediaEnded="OnMediaElementMediaEnded"/>
       <TextBlock VerticalAlignment="Center" Margin="3 0"
                  Text="{Binding ElementName=timelineSlider, Path=Value, Converter={x:Static local:Converters.SecondsToTimespanConverter}, StringFormat='mm\\:ss'}"/>
-      <ToggleButton x:Name="loopButton" Width="25" Padding="0 2" Content="↻" IsChecked="True"/>
+      <ToggleButton x:Name="loopButton" Width="25" Padding="0 2" Content="↻" ToolTip="{DynamicResource S.GradePage.Op.Loop}" IsChecked="True"/>
       <ToggleButton x:Name="playButton" Width="25" Padding="0 2" Checked="OnPlayButtonChecked" Unchecked="OnPlayButtonUnchecked">
         <ToggleButton.Style>
           <Style TargetType="{x:Type ToggleButton}">
             <Style.Triggers>
               <Trigger Property="IsChecked" Value="False">
                 <Setter Property="Content" Value="⏵︎"/>
+                <Setter Property="ToolTip" Value="{DynamicResource S.GradePage.Op.Play}"/>
               </Trigger>
               <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Content" Value="⏸︎"/>
+                <Setter Property="ToolTip" Value="{DynamicResource S.GradePage.Op.Pause}"/>
               </Trigger>
             </Style.Triggers>
           </Style>
@@ -122,8 +130,8 @@
       <Slider Name="timelineSlider" Margin="5" LargeChange="1" SmallChange="0.1" IsMoveToPointEnabled="True" Maximum="1" ValueChanged="OnTimelineSliderValueChanged"/>
     </DockPanel>
     <DockPanel Grid.Row="3" Margin="5">
-      <Button Content="前一页" Margin="5" Padding="30 5" Click="OnPrevPageButtonClicked"/>
-      <Button Content="下一页" Margin="5" Padding="30 5" Click="OnNextGradingPageButtonClicked"/>
+      <Button Content="{DynamicResource S.Nav.Op.PrevPage}" Margin="5" Padding="30 5" Click="OnPrevPageButtonClicked"/>
+      <Button Content="{DynamicResource S.Nav.Op.NextPage}" Margin="5" Padding="30 5" Click="OnNextGradingPageButtonClicked"/>
     </DockPanel>
   </Grid>
 </local:PageWithNext>

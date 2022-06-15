@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                        xml:lang="en-US">
+
+  <FontFamily x:Key="FontFamily.UI">Segoe UI,Tahoma</FontFamily>
+  <sys:String x:Key="S.Lang.RFC3066">en-US</sys:String>
+  <sys:String x:Key="S.Lang.Name.En">English</sys:String>
+  <sys:String x:Key="S.Lang.Name.Localized">English</sys:String>
+
+  <sys:String x:Key="S.Window.Title">MUSHRA Listening Test</sys:String>
+
+  <sys:String x:Key="S.ToolBar.Language">Language</sys:String>
+  <sys:String x:Key="S.ToolBar.Zoom">Zoom</sys:String>
+
+  <sys:String x:Key="S.Nav.Op.Start">Start</sys:String>
+  <sys:String x:Key="S.Nav.Op.NextPage">Next Page</sys:String>
+  <sys:String x:Key="S.Nav.Op.PrevPage">Previous Page</sys:String>
+
+  <sys:String x:Key="S.StartPage.Title">MUSHRA Listening Test</sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L0">The whole procedure involves several groups of listening tests.</sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L1">
+    Each group will have an original audio as reference as well as several compressed ones.
+    Please compare each audio with the reference, and grade them between 0 (lowest) to 100
+    (highest) according to their audio fidelity.
+  </sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L2">Each group must have at least one audio with a grade of 100.</sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L3">You may play the audio files in any order as many times as you want.</sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L4">
+    A folder named "audio" under the program directory contains all audio in test.
+    You may take a look at them out of curiosity, though the actual audio order within groups
+    will be shuffled during listening test. Please refrain from recovering the original order
+    with internal recorders or using other means of cheating. We expect your result in its
+    integrity, even if it does not seem so reasonable sometimes.
+  </sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L5">After finishing this test, please copy the result text on the final page to your test admin.</sys:String>
+  <sys:String x:Key="S.StartPage.Instructions.L6">Thank you for your participation.</sys:String>
+
+  <sys:String x:Key="S.GradePage.Title">Grading Page</sys:String>
+  <sys:String x:Key="S.GradePage.MsgBox.GradeVerification">Grade Verification</sys:String>
+  <sys:String x:Key="S.GradePage.MsgBox.AtLeastOneGrade100Required">At least one of the grades must be 100.</sys:String>
+  <sys:String x:Key="S.GradePage.Level.Excellent">Excellent</sys:String>
+  <sys:String x:Key="S.GradePage.Level.Good">Good</sys:String>
+  <sys:String x:Key="S.GradePage.Level.Fair">Fair</sys:String>
+  <sys:String x:Key="S.GradePage.Level.Poor">Poor</sys:String>
+  <sys:String x:Key="S.GradePage.Level.Bad">Bad</sys:String>
+  <sys:String x:Key="S.GradePage.Op.LoadRefAudio">Load Ref Audio</sys:String>
+  <sys:String x:Key="S.GradePage.Op.Load">Load</sys:String>
+  <sys:String x:Key="S.GradePage.Op.Play">Play</sys:String>
+  <sys:String x:Key="S.GradePage.Op.Pause">Pause</sys:String>
+  <sys:String x:Key="S.GradePage.Op.Loop">Loop</sys:String>
+
+  <sys:String x:Key="S.FinishPage.Title">Finish</sys:String>
+  <sys:String x:Key="S.FinishPage.MsgBox.AutoSaveFailed">AutoSave Failed</sys:String>
+  <sys:String x:Key="S.FinishPage.MsgBox.CopyFailed">Copy Failed</sys:String>
+  <sys:String x:Key="S.FinishPage.Op.CopyResult">Copy Result</sys:String>
+  <sys:String x:Key="S.FinishPage.Guide.PleaseCopyResults">Please copy the above result text to the admin. Thank you for your participation. You may now close this application.</sys:String>
+
+</ResourceDictionary>

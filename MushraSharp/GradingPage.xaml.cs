@@ -19,13 +19,14 @@ namespace MushraSharp
     public partial class GradingPage : PageWithNext
     {
         public GradePageVM GradePageVM => (GradePageVM)DataContext;
-        public string PageTitle => $"第 {PageIndex + 1} 组";
+        public int PageCount { get; init; }
 
         bool _progressSync;
 
         public GradingPage(MasterVM masterVM, int pageIndex) : base(masterVM, pageIndex)
         {
             InitializeComponent();
+            PageCount = masterVM.GradePages.Count;
             DataContext = masterVM.GradePages[pageIndex];
             mediaElement.Source = new Uri(GradePageVM.RefAudioPath);
 
@@ -56,7 +57,10 @@ namespace MushraSharp
                 OnNextPageButtonClicked(sender, e);
 
             else
-                MessageBox.Show("至少一项评分须为 100。", "评分检查", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    App.Current.GetLocalizedString("S.GradePage.MsgBox.AtLeastOneGrade100Required"),
+                    App.Current.GetLocalizedString("S.GradePage.MsgBox.GradeVerification"),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void OnRefAudioPlaybackChecked(object sender, RoutedEventArgs e)

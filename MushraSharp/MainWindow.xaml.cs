@@ -25,5 +25,11 @@ namespace MushraSharp
             DataContext = new MasterVM();
             frame.Content = new StartPage(MasterVM);
         }
+
+        private void OnLocaleListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (ResourceDictionary resourceDictionary in e.AddedItems)
+                App.Current.SetLocaleDictionary(resourceDictionary);
+        }
     }
 }

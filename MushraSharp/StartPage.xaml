@@ -21,18 +21,18 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
           </Style>
         </FrameworkElement.Resources>
-        <TextBlock Text="MUSHRA 听力评测" TextAlignment="Center"/>
-        <TextBlock>本测试涉及 <Run Text="{Binding GradePages.Count, Mode=OneTime}"/> 组听力评测。</TextBlock>
-        <TextBlock>每组会有一条初始音频和数条压缩优化后的音频。请对压缩后的每条音频和初始音频比较，并对其音质进行主观评分。分数为 0 至 100 之间的整数，0 代表最差，100 代表最好。</TextBlock>
-        <TextBlock>每组最低分可以大于 0，但最高分需要是 100，即<Run FontWeight="Bold">每组至少有一条音频需要打 100 分</Run>。</TextBlock>
-        <TextBlock>所有音频的播放次数和顺序不受限制。</TextBlock>
-        <TextBlock>程序路径下的 audio 文件夹内列出了所有的测试音频，有兴趣的话你可以在测试开始前翻阅一遍。但测试开始后组内顺序会被打乱，请避免试图用内录等方式还原原始顺序，或使用其他非常规方法。我们希望你的评分能最忠实地反映你的主观听觉感受，哪怕最终结果或许看起来不那么合理。</TextBlock>
-        <TextBlock>听力测试完成后请把最终完成页的结果代码复制给对接负责人。</TextBlock>
-        <TextBlock>谢谢！</TextBlock>
+        <TextBlock Text="{DynamicResource S.StartPage.Title}" TextAlignment="Center"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L0}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L1}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L2}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L3}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L4}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L5}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L6}"/>
       </StackPanel>
     </ScrollViewer>
     <DockPanel Grid.Row="1" Margin="5">
-      <Button Content="开始" Padding="30 5" VerticalAlignment="Bottom" Margin="5" Click="OnNextPageButtonClicked"/>
+      <Button Content="{DynamicResource S.Nav.Op.Start}" Padding="30 5" VerticalAlignment="Bottom" Margin="5" Click="OnNextPageButtonClicked"/>
     </DockPanel>
   </Grid>
 </local:PageWithNext>

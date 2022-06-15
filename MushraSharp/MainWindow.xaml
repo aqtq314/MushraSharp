@@ -5,12 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MushraSharp"
         mc:Ignorable="d"
-        Title="MUSHRA 听力评测" Width="800" Height="600"
+        Title="{DynamicResource S.Window.Title}" Width="864" Height="480"
+        FontFamily="{DynamicResource FontFamily.UI}"
         d:DataContext="{x:Static local:MasterVM.DesignerVM}">
   <DockPanel>
     <ToolBar DockPanel.Dock="Top">
-      <TextBlock Text="缩放" Margin="5 0" VerticalAlignment="Center"/>
-      <Slider x:Name="zoomSlider" Width="100" Minimum="0.5" Maximum="2" VerticalAlignment="Center" Value="1.5" LargeChange="0.25" SmallChange="0.05"/>
+      <TextBlock Text="{DynamicResource S.ToolBar.Language}" Margin="5 0" VerticalAlignment="Center"/>
+      <ListBox ItemsSource="{Binding Source={StaticResource AllLocaleDictionaries}}" Margin="0 -10" VerticalAlignment="Center" SelectionChanged="OnLocaleListBoxSelectionChanged">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Item[S.Lang.Name.Localized]}" FontFamily="{Binding Item[FontFamily.UI]}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ListBox>
+      <Separator/>
+      <TextBlock Text="{DynamicResource S.ToolBar.Zoom}" Margin="5 0" VerticalAlignment="Center"/>
+      <Slider x:Name="zoomSlider" Width="100" Minimum="0.5" Maximum="2" VerticalAlignment="Center" Value="1.2" LargeChange="0.2" SmallChange="0.05"/>
     </ToolBar>
     <Frame x:Name="frame" NavigationUIVisibility="Hidden">
       <FrameworkElement.LayoutTransform>

@@ -12,6 +12,7 @@ namespace MushraSharp
     {
         protected MasterVM MasterVM { get; init; }
         public int PageIndex { get; init; }
+        public int PageIndexOneBased => PageIndex + 1;
 
         public PageWithNext(MasterVM masterVM, int pageIndex = -1)
         {

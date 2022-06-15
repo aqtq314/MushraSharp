@@ -26,9 +26,29 @@ namespace MushraSharp
 
             Loaded += (sender, e) =>
             {
-                resultTextBox.Text = masterVM.CompileResults();
-                resultTextBox.SelectAll();
+                var resultText = masterVM.CompileResults();
+
+                var resultTextSavePath = System.IO.Path.Combine(
+                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),
+                    "_autosave_result.json");
+                try
+                {
+                    System.IO.File.WriteAllText(resultTextSavePath, resultText, Encoding.UTF8);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($@"{ex}",
+                        App.Current.GetLocalizedString("S.FinishPage.MsgBox.AutoSaveFailed"),
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                resultTextBox.Text = resultText;
                 resultTextBox.Focus();
+            };
+
+            resultTextBox.GotFocus += (sender, e) =>
+            {
+                resultTextBox.SelectAll();
             };
         }
 
@@ -36,6 +56,21 @@ namespace MushraSharp
         {
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+
+        private void OnCopyResultButtonClicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Clipboard.SetText(resultTextBox.Text);
+                resultTextBox.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($@"{resultTextBox.Text}\r\n\r\n{ex}",
+                    App.Current.GetLocalizedString("S.FinishPage.MsgBox.CopyFailed"),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
