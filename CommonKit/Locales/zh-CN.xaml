@@ -29,6 +29,7 @@
   <sys:String x:Key="S.GradePage.Title">评分页面</sys:String>
   <sys:String x:Key="S.GradePage.MsgBox.GradeVerification">评分检查</sys:String>
   <sys:String x:Key="S.GradePage.MsgBox.AtLeastOneGrade100Required">至少一项评分须为 100。</sys:String>
+  <sys:String x:Key="S.GradePage.MsgBox.PleaseGradeAllBeforeNext">请完成当前页面内所有评分后再跳转下一页。</sys:String>
   <sys:String x:Key="S.GradePage.Level.Excellent">优秀</sys:String>
   <sys:String x:Key="S.GradePage.Level.Good">良好</sys:String>
   <sys:String x:Key="S.GradePage.Level.Fair">一般</sys:String>

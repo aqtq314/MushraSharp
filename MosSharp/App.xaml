@@ -1,8 +1,8 @@
-﻿<Application x:Class="MushraSharp.App"
+﻿<Application x:Class="MosSharp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:collection="clr-namespace:System.Collections;assembly=System.Collections.NonGeneric"
-             xmlns:local="clr-namespace:MushraSharp"
+             xmlns:local="clr-namespace:MosSharp"
              xmlns:c="clr-namespace:CommonKit;assembly=CommonKit"
              StartupUri="MainWindow.xaml">
   <Application.Resources>

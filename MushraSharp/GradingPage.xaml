@@ -4,6 +4,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:local="clr-namespace:MushraSharp"
+                    xmlns:c="clr-namespace:CommonKit;assembly=CommonKit"
                     mc:Ignorable="d"
                     d:DesignWidth="560" d:DesignHeight="315"
                     d:DataContext="{x:Static local:MasterVM.DesignerGradePageVM}"
@@ -109,7 +110,7 @@
     <DockPanel Grid.Row="2">
       <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="OnMediaElementMediaOpened" MediaEnded="OnMediaElementMediaEnded"/>
       <TextBlock VerticalAlignment="Center" Margin="3 0"
-                 Text="{Binding ElementName=timelineSlider, Path=Value, Converter={x:Static local:Converters.SecondsToTimespanConverter}, StringFormat='mm\\:ss'}"/>
+                 Text="{Binding ElementName=timelineSlider, Path=Value, Converter={x:Static c:Converters.SecondsToTimespanConverter}, StringFormat='mm\\:ss'}"/>
       <ToggleButton x:Name="loopButton" Width="25" Padding="0 2" Content="↻" ToolTip="{DynamicResource S.GradePage.Op.Loop}" IsChecked="True"/>
       <ToggleButton x:Name="playButton" Width="25" Padding="0 2" Checked="OnPlayButtonChecked" Unchecked="OnPlayButtonUnchecked">
         <ToggleButton.Style>

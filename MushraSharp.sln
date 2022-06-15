@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MushraSharp", "MushraSharp\MushraSharp.csproj", "{4D9231E1-7321-42DC-A944-A2D715BCC866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MushraSharp", "MushraSharp\MushraSharp.csproj", "{4D9231E1-7321-42DC-A944-A2D715BCC866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MosSharp", "MosSharp\MosSharp.csproj", "{44AB038D-07C9-4132-A312-D2B947B12650}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonKit", "CommonKit\CommonKit.csproj", "{1B5F0684-618F-4CF0-BF3F-CED5DA5B0C20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4D9231E1-7321-42DC-A944-A2D715BCC866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D9231E1-7321-42DC-A944-A2D715BCC866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D9231E1-7321-42DC-A944-A2D715BCC866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AB038D-07C9-4132-A312-D2B947B12650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AB038D-07C9-4132-A312-D2B947B12650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AB038D-07C9-4132-A312-D2B947B12650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AB038D-07C9-4132-A312-D2B947B12650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B5F0684-618F-4CF0-BF3F-CED5DA5B0C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B5F0684-618F-4CF0-BF3F-CED5DA5B0C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B5F0684-618F-4CF0-BF3F-CED5DA5B0C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B5F0684-618F-4CF0-BF3F-CED5DA5B0C20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

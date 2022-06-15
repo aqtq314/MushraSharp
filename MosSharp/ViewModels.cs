@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommonKit;
+using CommonKit.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,14 +8,21 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
-namespace MushraSharp
+namespace MosSharp
 {
     public class GradeItemVM : DependencyObject
     {
+        public static int[] MosGrades { get; } = new[] { 1, 2, 3, 4, 5 };
+
+        public static IValueConverter MosValueToSelectedItemConverter { get; } = new LambdaConverter(
+            (value, targetType, parameter, culture) => (value is int intValue && Array.IndexOf(MosGrades, intValue) >= 0) ? value : null,
+            (value, targetType, parameter, culture) => value ?? 0);
+
         public static readonly DependencyProperty GradeProperty =
             DependencyProperty.Register(nameof(Grade), typeof(int), typeof(GradeItemVM),
-                new FrameworkPropertyMetadata(50));
+                new FrameworkPropertyMetadata(0));
 
         public int Grade
         {
@@ -21,29 +30,26 @@ namespace MushraSharp
             set => SetValue(GradeProperty, value);
         }
 
+        public int Index { get; init; }
         public string AudioPath { get; init; }
 
-        public GradeItemVM(string audioPath)
+        public int IndexOneBased => Index + 1;
+
+        public GradeItemVM(int index, string audioPath)
         {
+            Index = index;
             AudioPath = audioPath;
         }
     }
 
     public class GradePageVM : DependencyObject
     {
-        public string RefAudioPath { get; init; }
         public List<GradeItemVM> GradeItems { get; init; }
-        public List<GradeItemVM> ShuffledGradeItems { get; init; }
-
         public TimeSpan PageElapsedTime { get; set; }
 
-        public GradePageVM(string refAudioPath, IEnumerable<GradeItemVM> gradeItems)
+        public GradePageVM(IEnumerable<GradeItemVM> gradeItems)
         {
-            RefAudioPath = refAudioPath;
             GradeItems = gradeItems.ToList();
-
-            var rng = new Random();
-            ShuffledGradeItems = GradeItems.OrderBy(_ => rng.Next()).ToList();
         }
     }
 
@@ -55,12 +61,12 @@ namespace MushraSharp
         {
             var rng = new Random();
             GradePages =
-                Directory.EnumerateFiles(audioFolder, "*-ref.flac")
+                Directory.EnumerateFiles(audioFolder, "*.flac")
                 .OrderBy(_ => rng.Next())
-                .Select(refAudioPath => new GradePageVM(
-                    refAudioPath,
-                    Directory.EnumerateFiles(audioFolder, Path.GetFileName(refAudioPath)[..^"-ref.flac".Length] + "-*.flac")
-                        .Select(audioPath => new GradeItemVM(audioPath))))
+                .Select((audioPath, index) => (audioPath, index))
+                .Chunk(15)
+                .Select(indexedAudioPaths => new GradePageVM(indexedAudioPaths.Select(indexedAudioPath =>
+                    new GradeItemVM(indexedAudioPath.index, indexedAudioPath.audioPath))))
                 .ToList();
         }
 
@@ -79,9 +85,7 @@ namespace MushraSharp
                         gradeItem => Path.GetFileNameWithoutExtension(gradeItem.AudioPath),
                         gradeItem => gradeItem.Grade),
                 ElapsedTimes = GradePages
-                    .Select(gradePage => new object[] {
-                        Path.GetFileNameWithoutExtension(gradePage.RefAudioPath),
-                        gradePage.PageElapsedTime.TotalSeconds })
+                    .Select(gradePage => gradePage.PageElapsedTime.TotalSeconds)
                     .ToList(),
             });
 

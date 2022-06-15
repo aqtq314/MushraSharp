@@ -39,6 +39,7 @@
   <sys:String x:Key="S.GradePage.Title">Grading Page</sys:String>
   <sys:String x:Key="S.GradePage.MsgBox.GradeVerification">Grade Verification</sys:String>
   <sys:String x:Key="S.GradePage.MsgBox.AtLeastOneGrade100Required">At least one of the grades must be 100.</sys:String>
+  <sys:String x:Key="S.GradePage.MsgBox.PleaseGradeAllBeforeNext">Please grade all items before moving forward.</sys:String>
   <sys:String x:Key="S.GradePage.Level.Excellent">Excellent</sys:String>
   <sys:String x:Key="S.GradePage.Level.Good">Good</sys:String>
   <sys:String x:Key="S.GradePage.Level.Fair">Fair</sys:String>

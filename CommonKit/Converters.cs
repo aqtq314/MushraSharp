@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace MushraSharp
+namespace CommonKit
 {
     public class LambdaConverter : IValueConverter
     {
-        readonly Func<object, Type, object, CultureInfo, object> _convert;
-        readonly Func<object, Type, object, CultureInfo, object>? _convertBack;
+        readonly Func<object, Type, object, CultureInfo, object?> _convert;
+        readonly Func<object, Type, object, CultureInfo, object?>? _convertBack;
 
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
             _convert.Invoke(value, targetType, parameter, culture);
@@ -21,8 +21,8 @@ namespace MushraSharp
             _convertBack?.Invoke(value, targetType, parameter, culture);
 
         public LambdaConverter(
-            Func<object, Type, object, CultureInfo, object> convert,
-            Func<object, Type, object, CultureInfo, object>? convertBack = null)
+            Func<object, Type, object, CultureInfo, object?> convert,
+            Func<object, Type, object, CultureInfo, object?>? convertBack = null)
         {
             _convert = convert;
             _convertBack = convertBack;

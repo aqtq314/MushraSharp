@@ -1,0 +1,38 @@
+﻿<local:PageWithNext x:Class="MosSharp.StartPage"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:local="clr-namespace:MosSharp"
+                    mc:Ignorable="d" 
+                    d:DesignWidth="480" d:DesignHeight="360"
+                    d:DataContext="{x:Static local:MasterVM.DesignerVM}"
+                    Title="StartPage">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <ScrollViewer Margin="5" VerticalScrollBarVisibility="Auto">
+      <StackPanel Margin="5">
+        <FrameworkElement.Resources>
+          <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+          </Style>
+        </FrameworkElement.Resources>
+        <TextBlock Text="{DynamicResource S.StartPage.Title}" TextAlignment="Center"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L0}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L1}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L2}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L3}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L4}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L5}"/>
+        <TextBlock Text="{DynamicResource S.StartPage.Instructions.L6}"/>
+      </StackPanel>
+    </ScrollViewer>
+    <DockPanel Grid.Row="1" Margin="5">
+      <Button Content="{DynamicResource S.Nav.Op.Start}" Padding="30 5" VerticalAlignment="Bottom" Margin="5" Click="OnNextPageButtonClicked"/>
+    </DockPanel>
+  </Grid>
+</local:PageWithNext>
