@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,7 @@ namespace CommonKit
         AudioSource? _playbackAudioSource;
         bool _playbackLoop = true;
         bool _playbackPositionSyncking;
+        long _playbackPositionRefTicks;
         int _playbackPosition;
 
         public AudioSource? AudioSource
@@ -97,6 +99,7 @@ namespace CommonKit
                     }));
             }
 
+            _playbackPositionRefTicks = Stopwatch.GetTimestamp();
             _playbackPosition = playbackPosition;
             return copyLength;
         }
@@ -130,25 +133,37 @@ namespace CommonKit
         private void OnIsPlayingChanged(bool oldValue, bool newValue)
         {
             if (newValue)
+            {
                 AudioPlaybackEngine.Instance.ActivePlayer = this;
+                _playbackPositionRefTicks = Stopwatch.GetTimestamp();
+            }
 
             AudioPlaybackEngine.Instance.IsPlaying = newValue;
         }
 
         private void SyncPlaybackPosition(double? setToValue = null)
         {
-            if (!_playbackPositionSyncking)
-            {
-                _playbackPositionSyncking = true;
-                var audioSource = AudioSource;
-                if (audioSource != null)
-                {
-                    if (setToValue.HasValue)
-                        _playbackPosition = (int)(setToValue.Value * AudioPlaybackEngine.Fs);
-                    else
-                        PlaybackPosition = (double)_playbackPosition / AudioPlaybackEngine.Fs;
-                }
+            if (_playbackPositionSyncking) return;
 
+            _playbackPositionSyncking = true;
+            try
+            {
+                var audioSource = AudioSource;
+                if (audioSource == null) return;
+
+                if (setToValue.HasValue)
+                {
+                    _playbackPositionRefTicks = Stopwatch.GetTimestamp();
+                    _playbackPosition = (int)(setToValue.Value * AudioPlaybackEngine.Fs);
+                }
+                else
+                {
+                    PlaybackPosition = (double)_playbackPosition / AudioPlaybackEngine.Fs +
+                        (!IsPlaying ? 0 : (double)(Stopwatch.GetTimestamp() - _playbackPositionRefTicks) / TimeSpan.TicksPerSecond);
+                }
+            }
+            finally
+            {
                 _playbackPositionSyncking = false;
             }
         }
