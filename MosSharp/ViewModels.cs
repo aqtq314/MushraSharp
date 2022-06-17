@@ -24,6 +24,8 @@ namespace MosSharp
             DependencyProperty.Register(nameof(Grade), typeof(int), typeof(GradeItemVM),
                 new FrameworkPropertyMetadata(0));
 
+        Lazy<AudioSource> _audioSourceLazy;
+
         public int Grade
         {
             get => (int)GetValue(GradeProperty);
@@ -32,13 +34,18 @@ namespace MosSharp
 
         public int Index { get; init; }
         public string AudioPath { get; init; }
+        public AudioSource AudioSource => _audioSourceLazy.Value;
 
         public int IndexOneBased => Index + 1;
 
         public GradeItemVM(int index, string audioPath)
         {
+            _audioSourceLazy = new Lazy<AudioSource>(() => AudioSource.FromFile(audioPath));
             Index = index;
             AudioPath = audioPath;
+
+            Task.Run(() =>
+                GC.KeepAlive(AudioSource));
         }
     }
 

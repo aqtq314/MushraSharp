@@ -10,6 +10,8 @@ namespace MushraSharp
 {
     public class PageWithNext : Page
     {
+        Page? _nextPage = null;
+
         protected MasterVM MasterVM { get; init; }
         public int PageIndex { get; init; }
         public int PageIndexOneBased => PageIndex + 1;
@@ -28,10 +30,15 @@ namespace MushraSharp
 
         protected void OnNextPageButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (PageIndex + 1 >= MasterVM.GradePages.Count)
-                NavigationService.Navigate(new FinishPage(MasterVM));
-            else
-                NavigationService.Navigate(new GradingPage(MasterVM, PageIndex + 1));
+            if (_nextPage == null)
+            {
+                if (PageIndex + 1 >= MasterVM.GradePages.Count)
+                    _nextPage = new FinishPage(MasterVM);
+                else
+                    _nextPage = new GradingPage(MasterVM, PageIndex + 1);
+            }
+
+            NavigationService.Navigate(_nextPage);
         }
     }
 }

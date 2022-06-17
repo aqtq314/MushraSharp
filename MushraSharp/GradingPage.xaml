@@ -107,7 +107,7 @@
         </ItemsControl>
       </Grid>
     </ScrollViewer>
-    <DockPanel Grid.Row="2">
+    <!--<DockPanel Grid.Row="2">
       <MediaElement x:Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="OnMediaElementMediaOpened" MediaEnded="OnMediaElementMediaEnded"/>
       <TextBlock VerticalAlignment="Center" Margin="3 0"
                  Text="{Binding ElementName=timelineSlider, Path=Value, Converter={x:Static c:Converters.SecondsToTimespanConverter}, StringFormat='mm\\:ss'}"/>
@@ -129,7 +129,8 @@
         </ToggleButton.Style>
       </ToggleButton>
       <Slider Name="timelineSlider" Margin="5" LargeChange="1" SmallChange="0.1" IsMoveToPointEnabled="True" Maximum="1" ValueChanged="OnTimelineSliderValueChanged"/>
-    </DockPanel>
+    </DockPanel>-->
+    <c:AudioPlayer x:Name="audioPlayer" Grid.Row="2" AudioSource="{Binding RefAudioSource, Mode=OneTime}"/>
     <DockPanel Grid.Row="3" Margin="5">
       <Button Content="{DynamicResource S.Nav.Op.PrevPage}" Margin="5" Padding="30 5" Click="OnPrevPageButtonClicked"/>
       <Button Content="{DynamicResource S.Nav.Op.NextPage}" Margin="5" Padding="30 5" Click="OnNextGradingPageButtonClicked"/>

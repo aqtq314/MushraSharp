@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonKit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,9 +29,9 @@ namespace MosSharp
         public GradingPage(MasterVM masterVM, int pageIndex) : base(masterVM, pageIndex)
         {
             InitializeComponent();
+            DataContext = masterVM.GradePages[pageIndex];
             PageCount = masterVM.GradePages.Count;
             AudioItemCount = masterVM.GradePages.Select(gradePage => gradePage.GradeItems.Count).Sum();
-            DataContext = masterVM.GradePages[pageIndex];
             //mediaElement.Source = new Uri(GradePageVM.RefAudioPath);
 
             Loaded += (sender, e) =>
@@ -63,6 +64,10 @@ namespace MosSharp
             var unloadedTime = DateTime.Now;
             var newPageElapsedTime = unloadedTime - _loadedTime;
             GradePageVM.PageElapsedTime += newPageElapsedTime;
+
+            var activePlayer = AudioPlaybackEngine.Instance.ActivePlayer;
+            if (activePlayer != null)
+                activePlayer.IsPlaying = false;
         }
 
         private void OnPlayButtonChecked(object sender, RoutedEventArgs e) { }// => mediaElement.Play();

@@ -31,15 +31,15 @@ namespace CommonKit
 
     public static class Converters
     {
-        public static readonly IValueConverter DurationToSecondsConverter = new LambdaConverter(
+        public static IValueConverter DurationToSecondsConverter { get; } = new LambdaConverter(
             (duration, _, _, _) => ((Duration)duration).HasTimeSpan ? ((Duration)duration).TimeSpan.TotalSeconds : 0,
             (totalSeconds, _, _, _) => new Duration(TimeSpan.FromSeconds((double)totalSeconds)));
 
-        public static readonly IValueConverter TimespanToSecondsConverter = new LambdaConverter(
+        public static IValueConverter TimespanToSecondsConverter { get; } = new LambdaConverter(
             (timeSpan, _, _, _) => ((TimeSpan)timeSpan).TotalSeconds,
             (totalSeconds, _, _, _) => TimeSpan.FromSeconds((double)totalSeconds));
 
-        public static readonly IValueConverter SecondsToTimespanConverter = new LambdaConverter(
+        public static IValueConverter SecondsToTimespanConverter { get; } = new LambdaConverter(
             (totalSeconds, _, _, _) => TimeSpan.FromSeconds((double)totalSeconds),
             (timeSpan, _, _, _) => ((TimeSpan)timeSpan).TotalSeconds);
     }

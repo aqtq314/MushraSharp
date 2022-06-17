@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonKit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace MushraSharp
             DependencyProperty.Register(nameof(Grade), typeof(int), typeof(GradeItemVM),
                 new FrameworkPropertyMetadata(50));
 
+        Lazy<AudioSource> _audioSourceLazy;
+
         public int Grade
         {
             get => (int)GetValue(GradeProperty);
@@ -22,16 +25,24 @@ namespace MushraSharp
         }
 
         public string AudioPath { get; init; }
+        public AudioSource AudioSource => _audioSourceLazy.Value;
 
         public GradeItemVM(string audioPath)
         {
+            _audioSourceLazy = new Lazy<AudioSource>(() => AudioSource.FromFile(audioPath));
             AudioPath = audioPath;
+
+            Task.Run(() =>
+                GC.KeepAlive(AudioSource));
         }
     }
 
     public class GradePageVM : DependencyObject
     {
+        Lazy<AudioSource> _refAudioSourceLazy;
+
         public string RefAudioPath { get; init; }
+        public AudioSource RefAudioSource => _refAudioSourceLazy.Value;
         public List<GradeItemVM> GradeItems { get; init; }
         public List<GradeItemVM> ShuffledGradeItems { get; init; }
 
@@ -39,11 +50,15 @@ namespace MushraSharp
 
         public GradePageVM(string refAudioPath, IEnumerable<GradeItemVM> gradeItems)
         {
+            _refAudioSourceLazy = new Lazy<AudioSource>(() => AudioSource.FromFile(refAudioPath));
             RefAudioPath = refAudioPath;
             GradeItems = gradeItems.ToList();
 
             var rng = new Random();
             ShuffledGradeItems = GradeItems.OrderBy(_ => rng.Next()).ToList();
+
+            Task.Run(() =>
+                GC.KeepAlive(RefAudioSource));
         }
     }
 
